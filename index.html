@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - Uganda Avocado Conference 2026</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
+    <style>
+        :root {
+            --avocado-green: #4CAF50;
+            --avocado-green-dark: #2E7D32;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --white: #ffffff;
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+            --border-radius-xl: 24px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--avocado-green), var(--avocado-green-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--avocado-green), var(--avocado-green-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Reset Password</h2>
+        <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="new-password" placeholder="••••••••">
+        </div>
+        <button class="btn" onclick="handleReset()">Update Password</button>
+    </div>
+
+    <script>
+        const firebaseConfig = { /* PASTE YOUR CONFIG FROM FIREBASE CONSOLE HERE */ };
+        firebase.initializeApp(firebaseConfig);
+
+        const actionCode = new URLSearchParams(window.location.search).get('oobCode');
+
+        function handleReset() {
+            const newPassword = document.getElementById('new-password').value;
+            firebase.auth().confirmPasswordReset(actionCode, newPassword)
+                .then(() => alert("Success! Your password has been updated."))
+                .catch(err => alert("Error: " + err.message));
+        }
+    </script>
+</body>
+</html>
