@@ -1,0 +1,2 @@
+# app.ugandaavocado-reset
+reset
